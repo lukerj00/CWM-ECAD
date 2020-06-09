@@ -36,7 +36,7 @@ parameter CLK_PERIOD = 10;
 initial begin
 clk = 0;
 rst = 1;
-enable = 1;
+enable = 0;
 direction = 1;
 err=0;
 #5 rst = 0;
@@ -44,36 +44,34 @@ err=0;
 #6
 
 forever begin
-
 if (rst&(counter_out!=0))
 begin
 $display("***TEST FAILED! counter_out==%d, counter_out_reg==%d, enable='%d' ***",counter_out,counter_out_reg,rst);
 err = 1;
 end
-
 if (((direction==1)&(counter_out!=(counter_out_reg+1))&enable&(!rst))|((direction==0)&(counter_out!=(counter_out_reg-1))&enable&(!rst)))
 begin
 $display("***TEST FAILED! counter_out==%d, counter_out_reg==%d, direction='%d', enable ='%d', reset = '%d' ***",counter_out,counter_out_reg,direction,enable,rst);
 err=1;
 end
-
 if ((!enable&(counter_out!=counter_out_reg))|(enable&(counter_out==counter_out_reg)))
 begin
-
 $display("***TEST FAILED! counter_out==%d, counter_out_reg==%d, enable='%d' ***",counter_out,counter_out_reg,enable);
 err = 1;
 end
-
 end
 
 //Todo: Finish test, check for success
+end
 initial begin
- #50 
- if (err==0)
+#50 
+if (err==0)
 $display("***TEST PASSED! :) ***");
 $finish;
 end
 
+if (enable == 0)
+enable = 1;
 //Todo: Instantiate counter module
      counter top (
      .rst (rst)
