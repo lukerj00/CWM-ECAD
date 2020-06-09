@@ -47,7 +47,7 @@ forever begin
 
 if (rst&(counter_out!=0))
 begin
-$display("***TEST FAILED! counter_out==%d, counter_out_reg==%d, reset='%d' ***",counter_out,counter_out_reg,rst);
+$display("***TEST FAILED! counter_out==%d, counter_out_reg==%d, enable='%d' ***",counter_out,counter_out_reg,rst);
 err = 1;
 end
 
@@ -62,6 +62,8 @@ begin
 
 $display("***TEST FAILED! counter_out==%d, counter_out_reg==%d, enable='%d' ***",counter_out,counter_out_reg,enable);
 err = 1;
+end
+
 end
 
 //Todo: Finish test, check for success
