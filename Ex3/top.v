@@ -23,32 +23,29 @@ module counter(
 input rst, enable, direction, clk,
 output [7:0] counter_out
 );
-                    
-    //Todo: add registers and wires, if needed
+                  
+//Todo: add registers and wires, if needed
 reg clk_reg;
 reg [7:0] counter_out_reg;
-
 parameter t = 5;
 initial begin
-        counter_out_reg = 0;
-	clk_reg = 0;
-	forever
-        #t clk_reg=!clk_reg;
+counter_out_reg = 0;
+clk_reg = 0;
+forever
+#t clk_reg=!clk_reg;
 end
-
 assign counter_out=counter_out_reg;
-
-    //Todo: add user logic
+//Todo: add user logic
 always @ (posedge clk_reg or posedge rst) begin
 if (enable&&direction&&(!rst))
- counter_out_reg <= counter_out_reg+1;
+counter_out_reg <= counter_out_reg+1;
 else if (enable&&(!direction)&&(!rst)) begin
- counter_out_reg <= counter_out_reg-1;
+counter_out_reg <= counter_out_reg-1;
 end
 else if (!enable) begin
- counter_out_reg <= counter_out_reg;
+counter_out_reg <= counter_out_reg;
 end
 else
- counter_out_reg <= 0;
+counter_out_reg <= 0;
 end
 endmodule
