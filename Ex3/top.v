@@ -20,11 +20,33 @@
 
 module counter(
     //Todo: add ports 
-
-    );
+input rst, enable, direction, clk,
+output counter_out
+);
                     
     //Todo: add registers and wires, if needed
+reg clk_reg;
+reg [7:0] counter_out_reg;
+wire [7:0] counter_out;
+
+parameter t = 5;
+initial begin
+	clk_reg = 0;
+	forever
+        #t clk_reg=!clk_reg;
+end
+
+assign counter_out=counter_out_reg;
 
     //Todo: add user logic
-      
+always @ (posedge clk_reg or posedge rst) begin
+if (enable&&direction&&(!rst))
+ counter_out_reg <= counter_out_reg+1;
+else if (enable&&(!direction)&&(!rst))
+ counter_out_reg <= counter_out_reg-1;
+else if (!enable)
+ counter_out_reg <= counter_out_reg;
+else
+ counter_out <= 0;
+end
 endmodule
