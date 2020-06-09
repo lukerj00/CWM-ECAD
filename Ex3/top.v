@@ -31,6 +31,7 @@ wire [7:0] counter_out;
 
 parameter t = 5;
 initial begin
+        counter_out_reg = 0;
 	clk_reg = 0;
 	forever
         #t clk_reg=!clk_reg;
