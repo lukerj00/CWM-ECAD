@@ -79,7 +79,6 @@ end
      .clk (clk)
      .direction (direction)
      .counter_out (counter_out)
-     .counter_out_reg (counter_out_reg)
 );
      
 endmodule 
