@@ -42,11 +42,13 @@ assign counter_out=counter_out_reg;
 always @ (posedge clk_reg or posedge rst) begin
 if (enable&&direction&&(!rst))
  counter_out_reg <= counter_out_reg+1;
-else if (enable&&(!direction)&&(!rst))
+else if (enable&&(!direction)&&(!rst)) begin
  counter_out_reg <= counter_out_reg-1;
-else if (!enable)
+end
+else if (!enable) begin
  counter_out_reg <= counter_out_reg;
+end
 else
- counter_out <= 0;
+ counter_out_reg <= 0;
 end
 endmodule

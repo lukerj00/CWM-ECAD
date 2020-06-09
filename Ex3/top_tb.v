@@ -51,29 +51,29 @@ $display("***TEST FAILED! counter_out==%d, counter_out_reg==%d, reset='%d' ***",
 err = 1;
 end
 
-if (((direction==1)&(counter_out!=(counter_out_reg+1))&enable&(!rst))| ((direction==0)&(counter_out!=(counter_out_reg-1))))&enable&(!rst))
+if (((direction==1)&(counter_out!=(counter_out_reg+1))&enable&(!rst))|((direction==0)&(counter_out!=(counter_out_reg-1))&enable&(!rst)))
 begin
 $display("***TEST FAILED! counter_out==%d, counter_out_reg==%d, direction='%d', enable ='%d', reset = '%d' ***",counter_out,counter_out_reg,direction,enable,rst);
 err=1;
 end
 
-if ((!enable&(counter_out!=counter_out_reg))|((enable&(counter_out==counter_out_reg)))
+if ((!enable&(counter_out!=counter_out_reg))|(enable&(counter_out==counter_out_reg)))
 begin
+
 $display("***TEST FAILED! counter_out==%d, counter_out_reg==%d, enable='%d' ***",counter_out,counter_out_reg,enable);
 err = 1;
 end
 
 //Todo: Finish test, check for success
 initial begin
-#50 
-if (err==0)
+ #50 
+ if (err==0)
 $display("***TEST PASSED! :) ***");
 $finish;
 end
 
 //Todo: Instantiate counter module
-     updown_counter top (
-     .out (out)
+     counter top (
      .rst (rst)
      .enable (enable)
      .clk (clk)
