@@ -41,9 +41,10 @@ direction = 1;
 err=0;
 #5 rst = 0;
 
-#6
+#500
 
 forever begin
+#CLK_PERIOD
 if (rst&(counter_out!=0))
 begin
 $display("***TEST FAILED! counter_out==%d, counter_out_reg==%d, enable='%d' ***",counter_out,counter_out_reg,rst);
@@ -59,6 +60,9 @@ begin
 $display("***TEST FAILED! counter_out==%d, counter_out_reg==%d, enable='%d' ***",counter_out,counter_out_reg,enable);
 err = 1;
 end
+counter_out_reg=counter_out;
+if (enable == 0)
+enable = 1;
 end
 
 //Todo: Finish test, check for success
@@ -70,14 +74,12 @@ $display("***TEST PASSED! :) ***");
 $finish;
 end
 
-if (enable == 0)
-enable = 1;
 //Todo: Instantiate counter module
      counter top (
-     .rst (rst)
-     .enable (enable)
-     .clk (clk)
-     .direction (direction)
+     .rst (rst),
+     .enable (enable),
+     .clk (clk),
+     .direction (direction),
      .counter_out (counter_out)
 );
      
