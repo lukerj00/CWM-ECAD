@@ -37,6 +37,7 @@ module top_tb(
    end
 
   reset=0;
+  forever begin
   #(CLK_PERIOD*5)
   if (throw=3'b001)
    begin
