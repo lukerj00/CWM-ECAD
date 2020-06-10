@@ -16,7 +16,7 @@
 //  You need to write the whole file.
 //////////////////////////////////////////////////////////////////////////////////
 
-  module dice(
+  module dice (
     input clk,
     input reset,
     input button,

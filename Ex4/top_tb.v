@@ -15,7 +15,8 @@ module top_tb(
    reg clk;
    reg reset;
    reg button;
-   reg [2:0] throw;
+   wire [2:0] throw;
+   reg err;
    //output wire [2:0] throw_out;
 
    initial begin
@@ -29,7 +30,8 @@ module top_tb(
   reset = 1;
   button = 1;
   clk = 0;
-  throw  = 3'b000;
+  err = 0;
+  // throw  = 3'b000;
   
   #(CLK_PERIOD*5)
 
@@ -65,12 +67,13 @@ module top_tb(
     end
 
 end
+end
 
  dice top (
  .clk (clk),
  .reset (reset),
  .button (button),
- .throw (throw),
+ .throw (throw)
 );
 
 endmodule
