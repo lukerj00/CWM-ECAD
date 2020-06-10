@@ -24,13 +24,11 @@
   );
 
   always @(posedge clk) begin
-    if (button)&&(!rst)&&(throw<=3b'110)
+    if (button)&&(!rst)&&(throw<3b'110)
      throw <= #1 (throw + 1);
      else if (!button) begin
       throw <= #1 throw;
-     else if (rst)||(throw==((3b'000)||(3b'110)||(3b'111)) begin
-      throw <= #1 3b'001;
-     else if  begin
+     else if (rst)||(throw==((3b'000)|(3b'110)|(3b'111)) begin
       throw <= #1 3b'001;
   end
 
