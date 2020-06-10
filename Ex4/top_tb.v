@@ -51,14 +51,14 @@ module top_tb(
   reset = 0;
   
   #(CLK_PERIOD*5)
-  if (throw=(3'b111|3'b000))
+  if (throw==(3'b111|3'b000))
    begin
      $display("***TEST FAILED! reset=0, throw=%d", throw);
    err = 1;
    end
   
-  initial begin
-    #CLK_PERIOD*5 
+  begin
+    #(CLK_PERIOD*5)
       if (err==0)
         $display("***TEST PASSED! :) ***");
       $finish;
@@ -67,10 +67,10 @@ module top_tb(
 end
 
  dice top (
- .clk (clk)
- .reset (reset)
- .button (button)
- .throw (throw)
+ .clk (clk),
+ .reset (reset),
+ .button (button),
+ .throw (throw),
 );
 
 endmodule

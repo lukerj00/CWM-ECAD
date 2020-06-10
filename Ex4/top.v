@@ -24,13 +24,23 @@
   );
 
   always @(posedge clk) begin
-    if (button)&(!reset)&(throw<3b'111)
-     throw <= #1 (throw + 1);
-     else if (!button)
-      throw <= #1 throw;
-     else if (reset||((button)&(throw==(3b'000|3b'110|3b'111)))
-      throw <= #1 3b'001;
-  end
+    if (reset == 1)
+      throw <= #1 3'b001;
+    else if (reset == 0) begin
+      if (button) begin
+        if (throw<3'b111)
+         throw <= #1 (throw + 1);
+        else
+         throw <= #1 3'b001;
+        end
+      else
+        throw <= #1 throw;
+      end
+    end  
+        //((button)&(throw==(3b'000|3b'110|3b'111)))
+     
+     //else if (!button)
+      //throw <= #1 throw;
 
 endmodule
     
