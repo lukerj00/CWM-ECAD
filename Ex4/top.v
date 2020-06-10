@@ -24,7 +24,7 @@
   );
 
   always @(posedge clk) begin
-    if (button)&(!reset)&(throw<3b'110)
+    if (button)&(!reset)&(throw<3b'111)
      throw <= #1 (throw + 1);
      else if (!button)
       throw <= #1 throw;
