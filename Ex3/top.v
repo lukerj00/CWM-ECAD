@@ -28,24 +28,28 @@ output [7:0] counter_out
 reg clk_reg;
 reg [7:0] counter_out_reg;
 parameter t = 5;
-initial begin
-counter_out_reg = 0;
-clk_reg = 0;
-forever
-#t clk_reg=!clk_reg;
-end
+
 assign counter_out=counter_out_reg;
+
 //Todo: add user logic
-always @ (posedge clk_reg or posedge rst) begin
-if (enable&&direction&&(!rst))
-counter_out_reg <= counter_out_reg+1;
-else if (enable&&(!direction)&&(!rst)) begin
-counter_out_reg <= counter_out_reg-1;
-end
-else if (!enable) begin
-counter_out_reg <= counter_out_reg;
-end
-else
-counter_out_reg <= 0;
-end
+
+always @ (posedge clk_reg) begin
+ if (rst) begin
+  counter_out_reg <= 8'b00000000;
+ end
+  else begin
+   counter_out_reg <= (enable==0) ? (counter_out_reg) : (direction) ? (counter_out_reg + 1) : (counter_out_reg - 1);
+  end
+ //if (enable&&direction&&(!rst))
+  //counter_out_reg <= counter_out_reg+1;
+  //else if (enable&&(!direction)&&(!rst)) begin
+   //counter_out_reg <= counter_out_reg-1;
+  //end
+   //else if (!enable) begin
+    //counter_out_reg <= counter_out_reg;
+   //end
+    //else
+     //counter_out_reg <= 0;
+    end
+
 endmodule
