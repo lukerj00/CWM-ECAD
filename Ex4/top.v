@@ -16,3 +16,31 @@
 //  You need to write the whole file.
 //////////////////////////////////////////////////////////////////////////////////
 
+  module dice(
+    input clk,
+    input rst,
+    input button,
+    output reg [2:0] throw
+  );
+
+  always @(posedge clk) begin
+    if (button)&&(!rst)&&(throw<=3b'110)
+     throw <= #1 (throw + 1);
+     else if (!button) begin
+      throw <= #1 throw;
+     else if (rst)||(throw==((3b'000)||(3b'110)||(3b'111)) begin
+      throw <= #1 3b'001;
+     else if  begin
+      throw <= #1 3b'001;
+  end
+
+endmodule
+    
+
+
+
+
+
+
+
+
