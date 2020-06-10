@@ -25,41 +25,53 @@ module top_tb(
    end
 
   initial begin
+  
   reset = 1;
-  button = 0;
+  button = 1;
+  clk = 0;
   throw  = 3'b000;
+  
+  #(CLK_PERIOD*5)
+
+  forever begin
+
+  button = 1;
+  reset = 1;
 
   #(CLK_PERIOD*5)
+
   if (throw!=3'b001)
    begin
     $display("***TEST FAILED! reset=1, throw=%d", throw);
    err = 1;
    end
 
-  reset=0;
-  forever begin
   #(CLK_PERIOD*5)
-  if (throw=3'b001)
-   begin
-    $display("***TEST FAILED! reset=0, throw=%d", throw);
-  err = 1;
-  end
 
-  button = 1;
+  reset = 0;
+  
   #(CLK_PERIOD*5)
+  if (throw=(3'b111|3'b000))
+   begin
+     $display("***TEST FAILED! reset=0, throw=%d", throw);
+   err = 1;
+   end
+  
+  initial begin
+    #CLK_PERIOD*5 
+      if (err==0)
+        $display("***TEST PASSED! :) ***");
+      $finish;
+    end
 
 end
 
- counter top (
+ dice top (
  .clk (clk)
  .reset (reset)
  .button (button)
  .throw (throw)
 );
 
-intial begin
-
-
-
-
+endmodule
 
