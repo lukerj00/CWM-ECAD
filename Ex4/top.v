@@ -18,17 +18,17 @@
 
   module dice(
     input clk,
-    input rst,
+    input reset,
     input button,
     output reg [2:0] throw
   );
 
   always @(posedge clk) begin
-    if (button)&&(!rst)&&(throw<3b'110)
+    if (button)&(!reset)&(throw<3b'110)
      throw <= #1 (throw + 1);
-     else if (!button) begin
+     else if (!button)
       throw <= #1 throw;
-     else if (rst)||(throw==((3b'000)|(3b'110)|(3b'111)) begin
+     else if (reset||((button)&(throw==(3b'000|3b'110|3b'111)))
       throw <= #1 3b'001;
   end
 
