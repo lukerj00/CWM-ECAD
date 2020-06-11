@@ -15,9 +15,9 @@ module top_tb(
 
    reg clk;
    reg [2:0] counter;
-   reg red;
-   reg amber;
-   reg green;
+   wire red;
+   wire amber;
+   wire green;
    reg err;
 
    initial begin
@@ -30,9 +30,9 @@ module top_tb(
   
   clk = 0;
   counter = 3'b000;
-  red = 0;
-  amber = 0;
-  green = 0;
+  assign red = 1'b0;
+  assign amber = 1'b0;
+  assign green = 1'b0;
   
   #(CLK_PERIOD*5)
 
