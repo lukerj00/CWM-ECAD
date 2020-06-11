@@ -14,9 +14,11 @@ module top_tb(
    parameter CLK_PERIOD = 10;
 
    reg clk;
-   wire red;
-   wire amber;
-   wire green;
+   reg [2:0] counter;
+   reg red;
+   reg amber;
+   reg green;
+   reg err;
 
    initial begin
    clk = 1'b0;
@@ -27,6 +29,7 @@ module top_tb(
   initial begin
   
   clk = 0;
+  counter = 3'b000;
   red = 0;
   amber = 0;
   green = 0;
@@ -37,7 +40,7 @@ module top_tb(
 
   #(CLK_PERIOD*5)
 
-    if (red==0)&&(amber==0)&&(green==0)
+    if ((red==0)&(amber==0)&(green==0))
    begin
     $display("***TEST FAILED! no lights active, red=%d, amber=%d, red=%d ***", red, amber, red);
    err = 1;
@@ -45,7 +48,7 @@ module top_tb(
 
   #(CLK_PERIOD*5)
 
-    if (red==1)&&(amber==0)&&(green==1)
+    if ((red==1)&(amber==0)&(green==1))
    begin
     $display("***TEST FAILED! illegal light state, red=%d, amber=%d, red=%d ***", red, amber, red);
    err = 1;
@@ -54,7 +57,7 @@ end
 
   #(CLK_PERIOD*5)
 
-    if (red==0)&&(amber==1)&&(green==1)
+    if ((red==0)&(amber==1)&(green==1))
    begin
     $display("***TEST FAILED! illegal light state, red=%d, amber=%d, red=%d ***", red, amber, red);
    err = 1;
@@ -62,7 +65,7 @@ end
 
   #(CLK_PERIOD*5)
 
-    if (red==1)&&(amber==1)&&(green==1)
+    if ((red==1)&(amber==1)&(green==1))
    begin
     $display("***TEST FAILED! illegal light state, red=%d, amber=%d, red=%d ***", red, amber, red);
    err = 1;
