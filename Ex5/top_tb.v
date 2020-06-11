@@ -15,10 +15,13 @@ module top_tb(
 
    reg clk;
    reg [2:0] counter;
-   wire red;
-   wire amber;
-   wire green;
+   reg red;
+   reg amber;
+   reg green;
    reg err;
+   wire red_out;
+   wire amber_out;
+   wire green_out;
 
    initial begin
    clk = 1'b0;
@@ -30,10 +33,13 @@ module top_tb(
   
   clk = 0;
   counter = 3'b000;
-  assign red = 1'b0;
-  assign amber = 1'b0;
-  assign green = 1'b0;
-  
+  red = 1'b0;
+  amber = 1'b0;
+  green = 1'b0;
+  red_out = 1'b0;
+  amber_out = 1'b0;
+  green_out = 1'b0;
+
   #(CLK_PERIOD*5)
 
   forever begin
@@ -81,9 +87,9 @@ end
 
  trafficlights top (
  .clk (clk),
- .red (red),
- .amber (amber),
- .green (green)
+ .red_out (red_out),
+ .amber_out (amber_out),
+ .green_out (green_out)
 );
 
 endmodule

@@ -15,12 +15,19 @@
 
   module trafficlights (
     input clk,
-    output wire red,
-    output wire amber,
-    output wire green
+    output wire red_out,
+    output wire amber_out,
+    output wire green_out
   );
   
    reg [2:0] counter;
+   reg red;
+   reg amber;
+   reg green;
+
+  assign red_out = red;
+  assign amber_out = amber;
+  assign green_out = green;
 
    always @(posedge clk) begin
         if (counter<3'b100)
@@ -32,24 +39,24 @@
   always @(posedge clk) begin
     case(counter)
        3'b001 : begin
-		assign red = 1;
-                assign amber = 0;
-		assign green = 0;
+		red <= 1;
+                amber <= 0;
+		green <= 0;
                 end
        3'b010 : begin
-		assign red = 1;
-                assign amber = 1;
-                assign green = 0;
+		red <= 1;
+                amber <= 1;
+                green <= 0;
 		end
        3'b011 : begin
-		assign red = 0;
-                assign amber = 0;
-                assign green = 1;
+		red <= 0;
+                amber <= 0;
+                green <= 1;
 		end
        3'b100 : begin
-		assign red = 0;
-                assign amber = 1;
-                assign green = 0;
+		red <= 0;
+                amber <= 1;
+                green <= 0;
 		end
       //default: red <= 1 amber <= 0 green <= 0;
     endcase
