@@ -26,23 +26,16 @@
  );
 
   //reg [2:0] choice;
-  reg [2:0] throw_out;
+  wire [2:0] throw_out;
   reg red;
   reg amber;
   reg green;
-  reg [2:0] lights_out;
+  wire [2:0] lights_out;
   parameter CLK_PERIOD = 10;
 
-  #CLK_PERIOD
-
   dice dice_6(clk, rst, button, throw_out);
-   lights lights_6(clk, red, amber, green); 
-    lights_out={red, amber, green};
-   multiplexer mux_6(throw_out, lights_out, sel, result);
+   trafficlights lights_6(clk, red, amber, green); 
+    assign lights_out = {red, amber, green};
+   mux mux_6(throw_out, lights_out, sel, result);
 
-
-
-
-
-
-
+endmodule

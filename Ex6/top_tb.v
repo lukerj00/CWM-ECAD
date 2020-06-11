@@ -18,8 +18,8 @@ module top_tb(
     reg rst;
     reg clk;
     reg button;
-    reg [2:0] throw_out;
-    reg [2:0] lights_out;
+    wire [2:0] throw_out;
+    wire [2:0] lights_out;
     reg sel;
     reg err;
     wire [2:0] result;
@@ -40,8 +40,8 @@ module top_tb(
        button=1;
      #CLK_PERIOD
        rst=0;
-       throw_out=3'b000;
-       lights_out=3'b000;
+       //assign throw_out=3'b000;
+       //assign lights_out=3'b000;
        //result=3'b000;
 
      forever begin
@@ -52,7 +52,7 @@ module top_tb(
 
        if ((sel==0)&(result!=throw_out))
 	 begin
-	 $display("***TEST FAILED! Should have been throw! sel==%d, throw==%d, result==%d***", sel,throw, result);
+	 $display("***TEST FAILED! Should have been throw! sel==%d, throw_out==%d, result==%d***", sel,throw_out, result);
           err=1;
 	end
 	
@@ -60,7 +60,7 @@ module top_tb(
 	
 	if ((sel == 1) && (result != lights_out))
 	 begin
-	 $display("***TEST FAILED! Should have been throw! sel==%d, throw==%d, result==%d***", sel,throw, result);
+	 $display("***TEST FAILED! Should have been throw! sel==%d, throw_out==%d, result==%d***", sel,throw_out, result);
           err=1;
 	end
 		
@@ -78,15 +78,17 @@ module top_tb(
 
 
     //User's module
-     multiplexer top (
-	.rst (rst),
-	.clk (clk),
-	.button (button),
+     mux top (
+//	.rst (rst),
+//	.clk (clk),
+//	.button (button),
+        .a (throw_out),
+        .b (lights_out),
 	.sel (sel),
-	.result (result)
+	.out (result)
       );
    dice dice_6(clk,rst,button,throw_out);
-   lights lights_6(clk,red,amber,green);
+   trafficlights lights_6(clk,red,amber,green);
 
 endmodule
 

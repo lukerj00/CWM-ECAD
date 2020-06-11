@@ -22,13 +22,13 @@
 
 module mux(
     //Todo: define inputs here
-    input a, b, sel,
-    output out
+    input [2:0] a, [2:0] b, sel,
+    output [2:0] out
 );
 
     //Todo: define registers and wires here
 reg clk_reg;
-reg out_reg;
+reg [2:0] out_reg;
     
 
 parameter t = 5;
